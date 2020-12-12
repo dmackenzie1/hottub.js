@@ -33,7 +33,7 @@ hottub.interface = {
         return me.getTemperature();
     },
 	setTemperature: function(newTemperature){
-		var me = hottub.intergace;
+		var me = hottub.interface;
 		return me.setTemperature(newTemperature);
 	},
 	close: function () {
