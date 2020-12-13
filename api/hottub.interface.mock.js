@@ -36,7 +36,7 @@ hottub.interface.mock = {
     getTemperature: function(){
         var me = hottub.interface.mock,
         temperature=100.0*Math.random()
-        return temperature;
+        return temperature.toFixed(1);
     },
     setTemperature: function(newTemperature){
         var me = hottub.interface.mock;
