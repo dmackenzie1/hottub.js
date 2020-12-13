@@ -23,6 +23,7 @@ hottub.interface.rp = {
     pumpOnTime: new Date(),
     maxHeaterOnTimeInSeconds:30*60,
     maxPumpOnTimeInSeconds:60*60,
+    pumpOffDelay: 10 * 1000,
     initialize: function(){
         var me = hottub.interface.rp;
 	me.temperaturePolling();
@@ -81,8 +82,10 @@ hottub.interface.rp = {
         var me = hottub.interface.rp;
         hottub.log("turning off pump");
         me.turnOffHeater();
-        me.pumpState = 0;
-	me.pump.writeSync(0);
+        setTimeout(function(){
+            me.pumpState = 0;
+   	    me.pump.writeSync(0);
+        }, me.pumpOffDelay);
         return "turning off pump";
     },
     getHeaterStatus: function(){
