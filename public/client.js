@@ -3,6 +3,13 @@ hottubclient = {
         var me = hottubclient;
         console.log("ready");
         me.getTemperature();
+        me.getStatus();
+    },
+    getStatus: function(){
+        console.log("getting status");
+        $.get("/api/status", function(data){
+            console.log(data);
+        });
     },
     getTemperature: function () {
         console.log("getting temp.")

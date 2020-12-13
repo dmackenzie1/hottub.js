@@ -1,44 +1,44 @@
 hottub.interface = {
-    _interface: null,
+    _implementation: null,
     initialize: function () {
         var me = hottub.interface;
-        me._interface = hottub.interface.mock;
+        me._implementation = hottub.interface.mock;
     },
-	getPumpStatus: function(){
-		var me = hottub.interface;
-		return me.getPumpStatus;
-	},
+    getPumpStatus: function(){
+        var me = hottub.interface;
+	return me._implementation.getPumpStatus;
+    },
     turnOnPump: function () {
         var me = hottub.interface;
-        return me.turnOnPump();
+        return me._implementation.turnOnPump();
     },
     turnOffPump: function () {
         var me = hottub.interface;
-        return me.turnOffPump();
+        return me._implementation.turnOffPump();
     },
-	getHaterStatus: function(){
-		var me = hottub.interface;
-		return me.getHeaterStatus;
-	},
+    getHaterStatus: function(){
+        var me = hottub.interface;
+        return me._implementation.getHeaterStatus;
+    },
     turnOnHeater: function () {
         var me = hottub.interface;
-        return me.turnOnHeater();
+        return me._implementation.turnOnHeater();
     },
     turnOffHeater: function () {
         var me = hottub.interface;
-        return me.turnOffHeater();
+        return me._implementation.turnOffHeater();
     },
     getTemperature: function () {
         var me = hottub.interface;
-        return me.getTemperature();
+        return me._implementation.getTemperature();
     },
-	setTemperature: function(newTemperature){
-		var me = hottub.interface;
-		return me.setTemperature(newTemperature);
-	},
-	close: function () {
+    setTemperature: function(newTemperature){
         var me = hottub.interface;
-        return me.close();
+        return me._implementation.setTemperature(newTemperature);
+    },
+    close: function () {
+        var me = hottub.interface;
+        return me._implementation.close();
     }
 };
 
