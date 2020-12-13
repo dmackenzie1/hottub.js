@@ -1,6 +1,8 @@
 hottub.interface.mock = {
     pumpState: 0,
     heaterState: 0,
+	initialize: function(){
+	},
     getPumpStatus: function(){
         var me = hottub.interface.mock;
         return me.pumpState;
