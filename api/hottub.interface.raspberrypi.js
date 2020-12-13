@@ -15,28 +15,28 @@ hottub.interface.rp = {
     sensor_temperature: "/sys/bus/w1/devices/28-3c01d6071d8d/temperature",
     pump: new Gpio(pin_pump, 'out'),
     heater: new Gpio(pin_heater, 'out'),
-	lastTemperature: null,
-	temperaturePollInterval: 1000*15,
-	initialize: function(){
+    lastTemperature: null,
+    temperaturePollInterval: 1000*15,
+    initialize: function(){
 		var me = hottub.interface.rp;
 		me.temperaturePolling();
-	},
-	temperaturePolling: function(){
+    },
+    temperaturePolling: function(){
 		var me = hottub.interface.rp;
 		me.getTemperatureFromSensor();
 		setTimeout(function(){me.temperaturePolling()}, me.temperaturePollInterval);
-	},
-	getTemperatureFromSensor: function(){
+    },
+    getTemperatureFromSensor: function(){
         var me = hottub.interface.rp;
         sensor.get(me.sensor_id_1, function(err, temp){
-			me.lastTemperature = temp;
+            me.lastTemperature = temp;
         });
     },
     getTemperatureFromFile: function(){
         var me = hottub.interface.rp;
         let temperature = fs.readFileSync(sensor_temperature, {encoding: 'utf8', flag: 'r'}) / 1000;
         return temperature;
-    }
+    },
     getPumpStatus: function(){
         var me = hottub.interface.rp;
         return me.pumpState;
@@ -75,7 +75,7 @@ hottub.interface.rp = {
         return "turing off Heater";
     },
     getTemperature: function(){
-        var me = hottub.interface.rp,
+        var me = hottub.interface.rp;
         return me.lastTemperature;
     },
     setTemperature: function(newTemperature){

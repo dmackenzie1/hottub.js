@@ -2,7 +2,8 @@ hottub.interface = {
     _implementation: null,
     initialize: function () {
         var me = hottub.interface;
-        me._implementation = hottub.interface.mock;
+        me._implementation = hottub.interface.rp;
+        me._implementation.initialize();
     },
     getPumpStatus: function(){
         var me = hottub.interface;

@@ -9,7 +9,7 @@ eval(fs.readFileSync('api/hottub.js')+'');
 eval(fs.readFileSync('api/hottub.api.js')+'');
 eval(fs.readFileSync('api/hottub.interface.js')+'');
 eval(fs.readFileSync('api/hottub.interface.mock.js')+'');
-//eval(fs.readFileSync('api/hottub.interface.raspberrypi.js')+'');
+eval(fs.readFileSync('api/hottub.interface.raspberrypi.js')+'');
 
 
 console.log("Starting "  + Date.now());

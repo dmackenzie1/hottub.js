@@ -1,5 +1,5 @@
 hottubclient = {
-    refreshInterval:1000*20,
+    refreshInterval:1000*10,
     _pumpStatus:0,
     _heaterStatus:0,
     initialize: function () {
