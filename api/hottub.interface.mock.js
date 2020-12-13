@@ -1,10 +1,10 @@
 hottub.interface.mock = {
     pumpState: 0,
     heaterState: 0,
-	getPumpStatus: function(){
-		var me = hottub.interface.mock;
-		return me.pumpState;
-	},
+    getPumpStatus: function(){
+        var me = hottub.interface.mock;
+        return me.pumpState;
+    },
     turnOnPump: function () {
         var me = hottub.interface.mock;
         me.pumpState = 1;
@@ -12,19 +12,20 @@ hottub.interface.mock = {
     },
     turnOffPump: function () {
         var me = hottub.interface.mock;
+        me.heaterState = 0;
         me.pumpState = 0;
         return "turning off pump";
     },
-	getHeaterStatus: function(){
-		var me = hottub.interface.mock;
-		return me.heaterState;
-	},
+    getHeaterStatus: function(){
+        var me = hottub.interface.mock;
+        return me.heaterState;
+    },
     turnOnHeater: function () {
         var me = hottub.interface.mock;
         if (me.pumpState != 1) {
             me.turnOnPump();
         }
-        me.heaterSttate = 1;
+        me.heaterState = 1;
         return "turning on Heater";
     },
     turnOffHeater: function () {
@@ -33,14 +34,15 @@ hottub.interface.mock = {
         return "turing off Heater";
     },
     getTemperature: function(){
+        var me = hottub.interface.mock,
+        temperature=100.0*Math.random()
+        return temperature;
+    },
+    setTemperature: function(newTemperature){
         var me = hottub.interface.mock;
         return 0;
     },
-	setTemperature: function(newTemperature){
-		var me = hottub.interface.mock;
-        return 0;
-	},
-	close: function () {
+    close: function () {
         var me = hottub.interface.mock;
         console.log("Closing");
         me.turnOffHeater();

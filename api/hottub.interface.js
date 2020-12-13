@@ -6,7 +6,7 @@ hottub.interface = {
     },
     getPumpStatus: function(){
         var me = hottub.interface;
-	return me._implementation.getPumpStatus;
+	return me._implementation.getPumpStatus();
     },
     turnOnPump: function () {
         var me = hottub.interface;
@@ -16,9 +16,9 @@ hottub.interface = {
         var me = hottub.interface;
         return me._implementation.turnOffPump();
     },
-    getHaterStatus: function(){
+    getHeaterStatus: function(){
         var me = hottub.interface;
-        return me._implementation.getHeaterStatus;
+        return me._implementation.getHeaterStatus();
     },
     turnOnHeater: function () {
         var me = hottub.interface;
