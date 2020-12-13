@@ -41,6 +41,13 @@ hottubclient = {
         {
             $.get("/api/pumpOff", function(){me.refresh();});
         }
+        $("#pumpToggle *").prop('disabled',true);
+        $("#pumpToggle").css("opacity", 0.2);
+        setTimeout(function(){
+            $("#pumpToggle *").prop('disabled',false);
+            $("#pumpToggle").css("opacity", 1);
+
+        }, 5000);
     },
     onHeaterToggle: function(){
         var me = hottubclient;
@@ -50,6 +57,13 @@ hottubclient = {
         {
             $.get("/api/heaterOff", function(){me.refresh();});
         }
+        $("#heaterToggle *").prop('disabled',true);
+        $("#heaterToggle").css("opacity", 0.2);
+        setTimeout(function(){
+            $("#heaterToggle *").prop('disabled',false);
+            $("#heaterToggle").css("opacity", 1);
+
+        }, 5000);
     },
     refresh: function(){
         var me = hottubclient;
