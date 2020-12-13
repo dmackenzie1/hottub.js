@@ -1,23 +1,24 @@
 hottub.datalog = {
     _interface: null,
-    _logInterval: 60*1000,
+    _logInterval: 10*1000,
     _dataLog: [],
-    maxLogSize=3,
+    maxLogSize: 5,
     initialize: function () {
         var me = hottub.datalog;
+        me.startAutoLogging();
     },
     getDataLog: function(){
         var me = hottub.datalog;
          return me._dataLog;
     },
-    startLogging: function(){
+    startAutoLogging: function(){
         var me = hottub.datalog;
         me.logData();
-        setTimeout(function(){me.startLogging();}, me._logInterval);
-    }
+        setTimeout(function(){me.startAutoLogging();}, me._logInterval);
+    },
     logData: function(){
        var me = hottub.datalog,
-           currentTemp = me.getTemperature();
+           currentTemp = hottub.interface.getTemperature();
        me.logEvent({"temperature":currentTemp});
     },
     logEvent: function(eventData){
@@ -27,7 +28,7 @@ hottub.datalog = {
         eventData["timeStamp"]=ts;
         eventData["timeString"]=currentTime;
         me._dataLog.unshift(eventData);
-        if(len(me._dataLog)>me.maxLogSize){
+        if(me._dataLog.len>me.maxLogSize){
             me._dataLog.pop();
         }
     }
