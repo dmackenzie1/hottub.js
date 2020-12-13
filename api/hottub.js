@@ -16,6 +16,7 @@ hottub = {
 
         hottub.api.initialize(me.app);
         hottub.interface.initialize();
+        hottub.datalog.initialize();
 
     },
     log: function (text) {
