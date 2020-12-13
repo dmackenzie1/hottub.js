@@ -16,7 +16,13 @@ hottubclient = {
         setTimeout(function(){me.autoRefresh();}, me.refreshInterval);
     },
     viewTemperature: function(temp){
+        var me=hottubclient,
+            $newTemp=$("<div class='temperatureHistory'>" + temp + "</div>"),
+            $temperatureHistoryContainer=$("#temperatureHistory");
+        $temperatureHistoryContainer.append($newTemp);
+        console.log(temp);
         $("#currentTemp").text(temp);
+   
     },
     viewHeaterStatus: function(heaterStatus){
         var me = hottubclient;
@@ -48,12 +54,10 @@ hottubclient = {
     },
     refresh: function(){
         var me = hottubclient;
-        console.log("refreshing");
         me.getStatus();
     },
     getStatus: function(){
         var me = hottubclient;
-        console.log("getting status");
         $.get("/api/status", function(data){
             me.viewTemperature(data["currentTemp"]);
             me.viewHeaterStatus(data["heaterStatus"]);
@@ -61,7 +65,6 @@ hottubclient = {
         });
     },
     getTemperature: function () {
-        console.log("getting temp.")
         $.get("/api/getTemperature", function (data) {
             console.log(data);
         });
