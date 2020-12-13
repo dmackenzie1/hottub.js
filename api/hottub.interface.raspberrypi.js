@@ -58,7 +58,9 @@ hottub.interface.rp = {
     getTemperatureFromSensor: function(){
         var me = hottub.interface.rp;
         sensor.get(me.sensor_id_1, function(err, temp){
-            me.lastTemperature = temp;
+            if(temp && (temp!="false") && (temp!="undefined") ){
+                me.lastTemperature = temp;
+            }
         });
     },
     getTemperatureFromFile: function(){

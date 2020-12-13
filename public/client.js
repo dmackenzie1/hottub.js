@@ -16,13 +16,12 @@ hottubclient = {
         setTimeout(function(){me.autoRefresh();}, me.refreshInterval);
     },
     viewTemperature: function(temp){
-        var me=hottubclient,
-            $newTemp=$("<div class='temperatureHistory'>" + temp + "</div>"),
-            $temperatureHistoryContainer=$("#temperatureHistory");
-        $temperatureHistoryContainer.append($newTemp);
-        console.log(temp);
+        var me=hottubclient;
+//            $newTemp=$("<div class='temperatureHistory'>" + temp + "</div>"),
+//            $temperatureHistoryContainer=$("#temperatureHistory");
+//        $temperatureHistoryContainer.append($newTemp);
+//        console.log(temp);
         $("#currentTemp").text(temp);
-   
     },
     viewHeaterStatus: function(heaterStatus){
         var me = hottubclient;
@@ -62,6 +61,27 @@ hottubclient = {
             me.viewTemperature(data["currentTemp"]);
             me.viewHeaterStatus(data["heaterStatus"]);
             me.viewPumpStatus(data["pumpStatus"]);
+        });
+        $.get("/api/getDataLog", function(data){
+            var $container=$("#temperatureHistory"),
+                i, dataItem, $tempHistoryItem,
+                $spanTemp,
+                $spanTs,
+                $spanTimeString;
+            $container.empty();
+            for(i in data){
+                dataItem=data[i];
+                $spanTemp=$("<span class='historyText historyTemp'>Temp:" + dataItem["temperature"] + "</span>");
+                $spanTs  =$("<span class='historyText historyTs'>TS:" + dataItem["timeStamp"] + "</span>");
+                $spanTimeString=$("<span class='historyText historyTimeString'>TimeString:" + dataItem["timeString"] + "</span>");
+
+                $tempHistoryItem=$("<div class='tempHistoryItem'></div>");
+                $tempHistoryItem.append($spanTemp);
+                $tempHistoryItem.append($spanTs);
+                $tempHistoryItem.append($spanTimeString);
+
+                $container.append($tempHistoryItem);
+            }
         });
     },
     getTemperature: function () {
