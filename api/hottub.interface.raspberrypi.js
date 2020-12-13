@@ -17,14 +17,42 @@ hottub.interface.rp = {
     heater: new Gpio(pin_heater, 'out'),
     lastTemperature: null,
     temperaturePollInterval: 1000*15,
+    managementPollInterval: 1000*10,
+    maxTemperature: 35.0,
+    heaterOnTime: new Date(),
+    pumpOnTime: new Date(),
+    maxHeaterOnTimeInSeconds:30*60,
+    maxPumpOnTimeInSeconds:60*60,
     initialize: function(){
-		var me = hottub.interface.rp;
-		me.temperaturePolling();
+        var me = hottub.interface.rp;
+	me.temperaturePolling();
+        me.managementPolling();
+    },
+    managementPolling: function(){
+        var me=hottub.interface.rp,
+            ts = Math.floor(Date.now() / 1000),
+            currentTime = new Date();
+
+        if(me.heaterState==1){
+            if(me.lastTemperature>=me.maxTemperature){
+                me.turnOffHeater();
+            }
+            if(Math.floor((currentTime-me.heaterOnTime) / 1000)>me.maxHeaterOnTimeInSeconds){
+                me.turnOffHeater();
+            }
+        }
+        if(me.pumpState==1){
+            if(Math.floor((currentTime-me.pumpOnTime) / 1000)>me.maxPumpOnTimeInSeconds){
+                me.turnOffPump();
+            }
+        }
+
+        setTimeout(function(){me.managementPolling();}, me.managementPollInterval);
     },
     temperaturePolling: function(){
-		var me = hottub.interface.rp;
-		me.getTemperatureFromSensor();
-		setTimeout(function(){me.temperaturePolling()}, me.temperaturePollInterval);
+	var me = hottub.interface.rp;
+	me.getTemperatureFromSensor();
+	setTimeout(function(){me.temperaturePolling()}, me.temperaturePollInterval);
     },
     getTemperatureFromSensor: function(){
         var me = hottub.interface.rp;
@@ -43,16 +71,18 @@ hottub.interface.rp = {
     },
     turnOnPump: function () {
         var me = hottub.interface.rp;
+        hottub.log("turning on pump");
         me.pumpState = 1;
-		me.pump.writeSync(1);
+	me.pump.writeSync(1);
+        me.pumpOnTime = new Date();
         return "turning on pump";
     },
     turnOffPump: function () {
         var me = hottub.interface.rp;
-        me.heaterState = 0;
+        hottub.log("turning off pump");
+        me.turnOffHeater();
         me.pumpState = 0;
-		me.heater.writeSync(0);
-		me.pump.writeSync(0);
+	me.pump.writeSync(0);
         return "turning off pump";
     },
     getHeaterStatus: function(){
@@ -61,17 +91,20 @@ hottub.interface.rp = {
     },
     turnOnHeater: function () {
         var me = hottub.interface.rp;
+        hottub.log("turning on heater");
         if (me.pumpState != 1) {
             me.turnOnPump();
         }
         me.heater.writeSync(1);
         me.heaterState = 1;
+        me.heaterOnTime = new Date();
         return "turning on Heater";
     },
     turnOffHeater: function () {
         var me = hottub.interface.rp;
+        hottub.log("turning off heater");
         me.heaterState = 0;
-		me.heater.writeSync(0);
+	me.heater.writeSync(0);
         return "turing off Heater";
     },
     getTemperature: function(){
@@ -84,7 +117,6 @@ hottub.interface.rp = {
     },
     close: function () {
         var me = hottub.interface.rp;
-        console.log("Closing");
         me.turnOffHeater();
         me.turnOffPump();
         console.log("Closed");

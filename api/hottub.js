@@ -19,7 +19,7 @@ hottub = {
 
     },
     log: function (text) {
-        console.log(text);
+        console.log(new Date().toString() + ": " + text);
     },
     getExpressApp: function(){
         var me = hottub;
