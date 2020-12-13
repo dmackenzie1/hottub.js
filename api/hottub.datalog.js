@@ -1,8 +1,8 @@
 hottub.datalog = {
     _interface: null,
-    _logInterval: 10*1000,
+    _logInterval: 60*1000,
     _dataLog: [],
-    maxLogSize: 5,
+    maxLogSize: 10000,
     initialize: function () {
         var me = hottub.datalog;
         me.startAutoLogging();
@@ -28,7 +28,7 @@ hottub.datalog = {
         eventData["timeStamp"]=ts;
         eventData["timeString"]=currentTime;
         me._dataLog.unshift(eventData);
-        if(me._dataLog.len>me.maxLogSize){
+        if(me._dataLog.length>me.maxLogSize){
             me._dataLog.pop();
         }
     }
