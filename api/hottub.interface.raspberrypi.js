@@ -21,8 +21,8 @@ hottub.interface.rp = {
     maxTemperature: 35.0,
     heaterOnTime: new Date(),
     pumpOnTime: new Date(),
-    maxHeaterOnTimeInSeconds:30*60,
-    maxPumpOnTimeInSeconds:60*60,
+    maxHeaterOnTimeInSeconds:120*60,
+    maxPumpOnTimeInSeconds:120*60,
     pumpOffDelay: 10 * 1000,
     initialize: function(){
         var me = hottub.interface.rp;

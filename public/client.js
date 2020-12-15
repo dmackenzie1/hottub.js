@@ -47,7 +47,7 @@ hottubclient = {
             $("#pumpToggle *").prop('disabled',false);
             $("#pumpToggle").css("opacity", 1);
 
-        }, 5000);
+        }, 10000);
     },
     onHeaterToggle: function(){
         var me = hottubclient;
@@ -63,7 +63,7 @@ hottubclient = {
             $("#heaterToggle *").prop('disabled',false);
             $("#heaterToggle").css("opacity", 1);
 
-        }, 5000);
+        }, 10000);
     },
     refresh: function(){
         var me = hottubclient;

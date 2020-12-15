@@ -5,8 +5,10 @@ const pythonCommand = "python";
 const fs = require('fs');
 const https = require('https');
 
+eval(fs.readFileSync('aws_credentials.js')+'');
 eval(fs.readFileSync('api/hottub.js')+'');
 eval(fs.readFileSync('api/hottub.api.js')+'');
+eval(fs.readFileSync('api/hottub.aws.js')+'');
 eval(fs.readFileSync('api/hottub.datalog.js')+'');
 eval(fs.readFileSync('api/hottub.interface.js')+'');
 eval(fs.readFileSync('api/hottub.interface.mock.js')+'');
