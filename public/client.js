@@ -72,7 +72,10 @@ hottubclient = {
     getStatus: function(){
         var me = hottubclient;
         $.get("/api/status", function(data){
-            me.viewTemperature(data["currentTemp"]);
+            var currentTempC=data["currentTemp"],
+                currentTempF=me.ctof(currentTempC);
+          
+            me.viewTemperature(currentTempF);
             me.viewHeaterStatus(data["heaterStatus"]);
             me.viewPumpStatus(data["pumpStatus"]);
         });
@@ -102,6 +105,10 @@ hottubclient = {
         $.get("/api/getTemperature", function (data) {
             console.log(data);
         });
+    },
+    ctof: function(c) {
+        var f = (c*1.8)+32;
+        return f;
     }
 };
 
