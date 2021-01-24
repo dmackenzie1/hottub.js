@@ -137,17 +137,25 @@ hottub.interface.rp = {
         hottub.log("setting cycle to " + me.cycleState);
         return 0;
     },
+    turnOnCycle: function(){
+        var me = hottub.interface.rp;
+        me.cycleState=1;
+        return me.cycleState;
+    },
+    turnOffCycle: function(){
+        var me = hottub.interface.rp;
+        me.cycleState=0;
+        return me.cycleState;
+    },
+    getCycleStatus: function(){
+        var me = hottub.interface.rp;
+        return me.cycleState;
+    },
     close: function () {
         var me = hottub.interface.rp;
         me.turnOffHeater();
         me.turnOffPump();
         console.log("Closed");
         return "closed";
-    },
-    holdTemperature: function() {
-        var me = hottub.interface.rp,
-            minTemp=85.0,
-            maxTemp=90;
-        return 1;
     }
 };

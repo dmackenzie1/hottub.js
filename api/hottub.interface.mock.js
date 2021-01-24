@@ -44,6 +44,19 @@ hottub.interface.mock = {
         var me = hottub.interface.mock;
         return 0;
     },
+    turnOnCycle: function(){
+        var me = hottub.interface.mock;
+        return 1;
+    },
+    turnOffCycle: function(){
+        var me = hottub.interface.mock;
+        return 0;
+    },
+    getCycleStatus: function(){
+        var me = hottub.interface.mock;
+        return 0;
+    },
+
     close: function () {
         var me = hottub.interface.mock;
         console.log("Closing");

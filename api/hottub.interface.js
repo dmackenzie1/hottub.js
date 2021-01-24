@@ -37,6 +37,18 @@ hottub.interface = {
         var me = hottub.interface;
         return me._implementation.setTemperature(newTemperature);
     },
+    turnOnCycle: function(){
+        var me = hottub.interface;
+        return me._implementation.turnOnCycle();
+    },
+    turnOffCycle: function(){
+        var me = hottub.interface;
+        return me._implementation.turnOffCycle();
+    },
+    getCycleStatus: function(){
+        var me = hottub.interface;
+        return me._implementation.getCycleStatus();
+    },
     close: function () {
         var me = hottub.interface;
         return me._implementation.close();
