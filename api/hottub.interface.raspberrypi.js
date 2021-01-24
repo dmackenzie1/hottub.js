@@ -134,12 +134,8 @@ hottub.interface.rp = {
     },
     setTemperature: function (newTemperature) {
         var me = hottub.interface.rp;
-        me.cycleState = me.cycleState + 1;
-        if (me.cycleState > 1) {
-            me.cycleState = 0;
-        }
-        hottub.log("setting cycle to " + me.cycleState);
-        return 0;
+        me.maxTemperature=newTemperature;
+        return "new temperature is " + newTemperature;
     },
     turnOnCycle: function () {
         var me = hottub.interface.rp;

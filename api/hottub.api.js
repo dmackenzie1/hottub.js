@@ -57,8 +57,9 @@ hottub.api = {
             res.end();
         });
         me._app.get('/api/setTemperature', function (req, res) {
-            var me = hottub.api;
-            var temperature = me._interface.setTemperature(39);
+            var me = hottub.api,
+                newTemp = req.query.temperature;
+            var temperature = me._interface.setTemperature(newTemp);
             res.json({temperature, rangeStart: -55, rangeEnd: 125});
         });
         me._app.get('/api/getDataLog', function (req, res) {
