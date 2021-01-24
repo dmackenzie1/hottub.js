@@ -1,6 +1,6 @@
 //listenAddr="192.168.1.195";
 //listenAddr="127.0.0.1";
-listenAddr="0.0.0.0";
+listenAddr = "0.0.0.0";
 
 hottub = {
     app: express(),
@@ -22,12 +22,12 @@ hottub = {
     log: function (text) {
         console.log(new Date().toString() + ": " + text);
     },
-    getExpressApp: function(){
+    getExpressApp: function () {
         var me = hottub;
         return me.app;
     },
-    ctof: function(c){
-        var f= c * 9 / 5 + 32;
+    ctof: function (c) {
+        var f = c * 9 / 5 + 32;
         return f;
     }
 };

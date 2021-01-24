@@ -5,9 +5,9 @@ hottub.interface = {
         me._implementation = hottub.interface.rp;
         me._implementation.initialize();
     },
-    getPumpStatus: function(){
+    getPumpStatus: function () {
         var me = hottub.interface;
-	return me._implementation.getPumpStatus();
+        return me._implementation.getPumpStatus();
     },
     turnOnPump: function () {
         var me = hottub.interface;
@@ -17,7 +17,7 @@ hottub.interface = {
         var me = hottub.interface;
         return me._implementation.turnOffPump();
     },
-    getHeaterStatus: function(){
+    getHeaterStatus: function () {
         var me = hottub.interface;
         return me._implementation.getHeaterStatus();
     },
@@ -33,19 +33,19 @@ hottub.interface = {
         var me = hottub.interface;
         return me._implementation.getTemperature();
     },
-    setTemperature: function(newTemperature){
+    setTemperature: function (newTemperature) {
         var me = hottub.interface;
         return me._implementation.setTemperature(newTemperature);
     },
-    turnOnCycle: function(){
+    turnOnCycle: function () {
         var me = hottub.interface;
         return me._implementation.turnOnCycle();
     },
-    turnOffCycle: function(){
+    turnOffCycle: function () {
         var me = hottub.interface;
         return me._implementation.turnOffCycle();
     },
-    getCycleStatus: function(){
+    getCycleStatus: function () {
         var me = hottub.interface;
         return me._implementation.getCycleStatus();
     },
