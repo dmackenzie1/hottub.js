@@ -144,12 +144,14 @@ hottub.interface.rp = {
     turnOnCycle: function () {
         var me = hottub.interface.rp;
         me.cycleState = 1;
-        return me.cycleState;
+        hottub.log("cycling on");
+        return "turning on cycling";
     },
     turnOffCycle: function () {
         var me = hottub.interface.rp;
         me.cycleState = 0;
-        return me.cycleState;
+        hpttub.log("cycling off");
+        return "turning off cycling";
     },
     getCycleStatus: function () {
         var me = hottub.interface.rp;

@@ -39,7 +39,7 @@ hottubclient = {
         var me = hottubclient;
         me._cycleStatus=cycleStatus;
         $("#cycleStatus").text(cycleStatus);
-    };
+    },
     onPumpToggle: function(){
         var me = hottubclient;
         if(me._pumpStatus==0){

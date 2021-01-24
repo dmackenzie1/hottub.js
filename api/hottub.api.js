@@ -11,12 +11,14 @@ hottub.api = {
                 currentTime = new Date().toString(),
                 currentPumpStatus = me._interface.getPumpStatus(),
                 currentHeaterStatus = me._interface.getHeaterStatus(),
+                currentCycleStatus = me._interface.getCycleStatus(),
                 currentTemp = me._interface.getTemperature(),
                 rv = {
                     "currentTime": currentTime,
                     "ts": ts,
                     "pumpStatus": currentPumpStatus,
                     "heaterStatus": currentHeaterStatus,
+                    "cycleStatus": currentCycleStatus,
                     "currentTemp": currentTemp
                 };
             res.json(rv);
