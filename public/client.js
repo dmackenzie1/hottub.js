@@ -2,11 +2,13 @@ hottubclient = {
     refreshInterval:1000*10,
     _pumpStatus:0,
     _heaterStatus:0,
+    _cycleStatus:0,
     initialize: function () {
         var me = hottubclient;
         console.log("ready");
         $("#pumpToggle").click(me.onPumpToggle);
         $("#heaterToggle").click(me.onHeaterToggle);
+        $("#cycleToggle").click(me.onCycleToggle);
         me.refresh();
         me.autoRefresh();
     },
@@ -33,6 +35,11 @@ hottubclient = {
         me._pumpStatus=pumpStatus;
         $("#pumpStatus").text(pumpStatus);
     },
+    viewCycleStatus: function(cycleStatus){
+        var me = hottubclient;
+        me._cycleStatus=cycleStatus;
+        $("#cycleStatus").text(cycleStatus);
+    };
     onPumpToggle: function(){
         var me = hottubclient;
         if(me._pumpStatus==0){
@@ -65,6 +72,21 @@ hottubclient = {
 
         }, 10000);
     },
+    onCycleToggle: function(){
+        var me = hottubclient;
+        if(me._cycleStatus==0){
+            $.get("/api/cycleOn", function(){me.refresh();});
+        } else
+        {
+            $.get("/api/cycleOff", function(){me.refresh();});
+        }
+        $("#cycleToggle *").prop('disabled',true);
+        $("#cycleToggle").css("opacity", 0.2);
+        setTimeout(function(){
+            $("#cycleToggle *").prop('disabled',false);
+            $("#cycleToggle").css("opacity", 1);
+        }, 10000);
+    },
     refresh: function(){
         var me = hottubclient;
         me.getStatus();
@@ -78,6 +100,7 @@ hottubclient = {
             me.viewTemperature(currentTempF);
             me.viewHeaterStatus(data["heaterStatus"]);
             me.viewPumpStatus(data["pumpStatus"]);
+            me.viewCycleStatus(data["cycleStatus"]);
         });
         $.get("/api/getDataLog", function(data){
             var $container=$("#temperatureHistory"),
