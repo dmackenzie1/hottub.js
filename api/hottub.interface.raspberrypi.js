@@ -11,6 +11,7 @@ var sensor = require('ds18x20');
 hottub.interface.rp = {
     pumpState: 0,
     heaterState: 0,
+    cycleState: 0,
     sensor_id_1: "28-3c01d6071d8d",
     sensor_temperature: "/sys/bus/w1/devices/28-3c01d6071d8d/temperature",
     pump: new Gpio(pin_pump, 'out'),
@@ -18,12 +19,13 @@ hottub.interface.rp = {
     lastTemperature: null,
     temperaturePollInterval: 1000*15,
     managementPollInterval: 1000*10,
-    maxTemperature: 35.0,
+    maxTemperature: 35.4,
     heaterOnTime: new Date(),
     pumpOnTime: new Date(),
-    maxHeaterOnTimeInSeconds:120*60,
-    maxPumpOnTimeInSeconds:120*60,
+    maxHeaterOnTimeInSeconds:20*60,
+    maxPumpOnTimeInSeconds:30*60,
     pumpOffDelay: 10 * 1000,
+    maxCycleTempDiff: 4.0,
     initialize: function(){
         var me = hottub.interface.rp;
 	me.temperaturePolling();
@@ -36,18 +38,28 @@ hottub.interface.rp = {
 
         if(me.heaterState==1){
             if(me.lastTemperature>=me.maxTemperature){
+                hottub.log("temperature reached");
                 me.turnOffHeater();
             }
             if(Math.floor((currentTime-me.heaterOnTime) / 1000)>me.maxHeaterOnTimeInSeconds){
+                hottub.log("max heater time on reached");
                 me.turnOffHeater();
             }
         }
         if(me.pumpState==1){
             if(Math.floor((currentTime-me.pumpOnTime) / 1000)>me.maxPumpOnTimeInSeconds){
+                hottub.log("max pump time on reached");
                 me.turnOffPump();
             }
         }
-
+        if(me.cycleState==1){
+            if((me.heaterState==0)&&(me.pumpState==0)){
+                if(me.maxTemperature-me.lastTemperature>me.maxCycleTempDiff){
+                    me.turnOnHeater();
+                    hottub.log("turning on heater for cycle");
+                }
+            }
+        }
         setTimeout(function(){me.managementPolling();}, me.managementPollInterval);
     },
     temperaturePolling: function(){
@@ -117,7 +129,12 @@ hottub.interface.rp = {
         return me.lastTemperature;
     },
     setTemperature: function(newTemperature){
-        var me = hottub.interface.mock;
+        var me = hottub.interface.rp;
+        me.cycleState=me.cycleState+1;
+        if(me.cycleState>1){
+            me.cycleState=0;
+        }
+        hottub.log("setting cycle to " + me.cycleState);
         return 0;
     },
     close: function () {
@@ -126,5 +143,11 @@ hottub.interface.rp = {
         me.turnOffPump();
         console.log("Closed");
         return "closed";
+    },
+    holdTemperature: function() {
+        var me = hottub.interface.rp,
+            minTemp=85.0,
+            maxTemp=90;
+        return 1;
     }
 };
