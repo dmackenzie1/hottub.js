@@ -36,34 +36,46 @@ hottub.api = {
 	    var me = hottub.api;
             res.send(me._interface.turnOnHeater());
         });
-        me._app.get("/api/heaterOff", function (req, res) {
+	me._app.get("/api/heaterOff", function (req, res) {
 	    var me = hottub.api;
             res.send(me._interface.turnOffHeater());
         });
 	me._app.get('/api/getTemperature', function (req, res) {
 	    var me = hottub.api;
-            console.log("getting temperature");
+        hottub.log("getting temperature");
             var temperature = me._interface.getTemperature(),
             result = {temperature, rangeStart: -55, rangeEnd: 125};
             res.json(result);
             res.end();
         });
-        me._app.get('/api/setTemperature', function(req, res){
+    me._app.get('/api/setTemperature', function(req, res){
 	    var me = hottub.api;
             var temperature = me._interface.setTemperature(39);
             res.json({temperature, rangeStart: -55, rangeEnd: 125});
         });
-        me._app.get('/api/getDataLog', function(req, res){
+    me._app.get('/api/getDataLog', function(req, res){
             var me = hottub.api,
                 dataLog = hottub.datalog.getDataLog();
             res.json(dataLog);
-            res.end(); 
+            res.end();
+        });
+    me._app.get("/api/getCycleStatus", function(req, res){
+            var me = hottub.api;
+            res.send(me._interface.getCycleStatus());
+        });
+    me._app.get("/api/cycleOn", function (req, res) {
+            var me = hottub.api;
+            res.send(me._interface.turnOnCycle());
+        });
+    me._app.get("/api/cycleOff", function (req, res) {
+            var me = hottub.api;
+            res.send(me._interface.turnOffCycle());
         });
 	me._app.get('/api/close', function(req, res){
 	    var me = hottub.api;
             var closeResults=me._interface.close();
             res.send(closeResults);
-            console.log("Exiting");
+            hottub.log("Exiting");
         });
     }
 };
