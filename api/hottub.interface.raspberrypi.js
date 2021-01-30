@@ -22,8 +22,8 @@ hottub.interface.rp = {
     maxTemperature: 35.4,
     heaterOnTime: new Date(),
     pumpOnTime: new Date(),
-    maxHeaterOnTimeInSeconds: 20 * 60,
-    maxPumpOnTimeInSeconds: 30 * 60,
+    maxHeaterOnTimeInSeconds: 18 * 60,
+    maxPumpOnTimeInSeconds: 20 * 60,
     pumpOffDelay: 10 * 1000,
     maxCycleTempDiff: 4.0,
     initialize: function () {
@@ -36,6 +36,10 @@ hottub.interface.rp = {
             ts = Math.floor(Date.now() / 1000),
             currentTime = new Date();
 
+        if(me.lastTemperature>41.5){
+            me.turnOffHeater();
+            me.turnOffCycle();
+        }
         if (me.heaterState == 1) {
             if (me.lastTemperature >= me.maxTemperature) {
                 hottub.log("temperature reached");
@@ -135,6 +139,7 @@ hottub.interface.rp = {
     setTemperature: function (newTemperature) {
         var me = hottub.interface.rp;
         me.maxTemperature=newTemperature;
+        hottub.log("new temperature is " + newTemperature);
         return "new temperature is " + newTemperature;
     },
     turnOnCycle: function () {
@@ -146,7 +151,7 @@ hottub.interface.rp = {
     turnOffCycle: function () {
         var me = hottub.interface.rp;
         me.cycleState = 0;
-        hpttub.log("cycling off");
+        hottub.log("cycling off");
         return "turning off cycling";
     },
     getCycleStatus: function () {
